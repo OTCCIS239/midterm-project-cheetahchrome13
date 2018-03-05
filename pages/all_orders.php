@@ -10,18 +10,60 @@ require_once('../includes/db.php');
 $current = "orders";
 $title = "Guitars- all orders";
 
-// get all products
-$queryAllOrders = 'SELECT * FROM orders ORDER BY orderID';
-$statement1 = $conn->prepare($queryAllOrders);
-$statement1->execute();
-$orders = $statement1->fetchAll();
-$statement1->closeCursor();
+// Queries for pertinent tables
+$orders = getMany("SELECT * FROM orders", [], $conn);
+$customers = getMany("SELECT * FROM customers", [], $conn);
+
+// // get all products
+// $queryAllOrders = 'SELECT * FROM orders ORDER BY orderID';
+// $statement1 = $conn->prepare($queryAllOrders);
+// $statement1->execute();
+// $orders = $statement1->fetchAll();
+// $statement1->closeCursor();
 
 //var_dump($orders);
 ?>
 
 
                     <?php include("../includes/header_nav.php") ?>
+
                     <!-- Unique page content here -->
+                    <div class="row align-items-center" style="height: 100%;">
+                    <div class="col-sm"></div>
+                    <div class="col-sm-9">
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="card-header text-center font-weight-bold text-white bg-info mb-3">
+                                <h2>Orders</h2>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="text-center">All Orders</h5>
+                                    <table class="table table-striped table-dark">
+                                        <tr>
+                                            <th scope="col">Order ID</th>
+                                            <th scope="col">Customer Name</th>
+                                            <th scope="col">Customer Email</th>
+                                            <th scope="col" class="text-right">Order Date</th>
+                                        </tr>
+                                        <?php foreach ($orders as $order) : ?>
+                                        <?php $currentOrder = $order['customerID']; ?> 
+                                        <?php $currentCustomer = getOne("SELECT * FROM  customers WHERE customerID = $currentOrder", [], $conn); ?>
+                                <!---->
+                                        <tr>
+                                            <td><a href="#"><?php echo $order['orderID']; ?></a></td>
+                                            <td><?php echo $currentCustomer['firstName']." ".$currentCustomer['lastName']; ?></td>
+                                            <td><?php echo $currentCustomer['emailAddress']; ?></td>
+                                            <td class="text-right"><?php echo $order['orderDate']; ?></td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                <!---->      
+                                    </table>       
+                                </div>      
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm"></div>
+            </div>
+
                     <?php include("../includes/footer.html") ?>
             

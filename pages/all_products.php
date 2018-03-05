@@ -22,7 +22,7 @@ $categories = getMany("SELECT * FROM categories", [], $conn);
                     <!--***Unique page content here*************************-->
             <div class="row align-items-center" style="height: 100%;">
                     <div class="col-sm"></div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-9">
                         <div class="card text-white bg-dark mb-3">
                             <div class="card-header text-center font-weight-bold text-white bg-info mb-3">
                                 <h2>Products</h2>
