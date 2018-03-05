@@ -1,0 +1,8 @@
+.current {
+    font-weight: bold;
+    cursor: default;
+}
+
+.container {
+    height: 100vh;
+}

@@ -1,11 +1,27 @@
 <?php
 
-// This file initializes some goodies that will make your
-// development experience nicer! If your PHP throws an
-// error, we will show you exactly what went wrong!
-
+// Dependencies/Whoops/Read .env
 require_once('../includes/init.php');
 
-// Here you might connect to the database and show off some of your newest guitars.
+// Connect to the database 
+require_once('../includes/db.php');
 
+// This page
+$current = "orders";
+$title = "Guitars- all orders";
+
+// get all products
+$queryAllOrders = 'SELECT * FROM orders ORDER BY orderID';
+$statement1 = $conn->prepare($queryAllOrders);
+$statement1->execute();
+$orders = $statement1->fetchAll();
+$statement1->closeCursor();
+
+//var_dump($orders);
 ?>
+
+
+                    <?php include("../includes/header_nav.php") ?>
+                    <!-- Unique page content here -->
+                    <?php include("../includes/footer.html") ?>
+            
