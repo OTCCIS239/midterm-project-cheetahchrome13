@@ -16,20 +16,8 @@ if ($order_ID == NULL || $order_ID == FALSE) {
 $current = "orderDetails";
 $title = "Guitars- order details";
 
-// get all products
-// $orderItems = getMany("SELECT * FROM `orderItems` JOIN `products` ON `orderItems`.`productID` = `products`.`productID` WHERE `orderItems`.`orderID` = $order_ID", [], $conn);
-
-// $details = getMany("SELECT * FROM `orders` JOIN `orderItems` ON `orders`.`orderID` = `orderItems`.`orderID` WHERE `order`.`orderID` = $order_ID", [], $conn);
-
-// $customer = getOne("SELECT * FROM `orders` JOIN `customers` ON `orders`.`customerID` = `customers`.`customerID` WHERE `order`.`orderID` = $order_ID", [], $conn);
-
-// $customer_ID = $customer['customerID'];
-
-// $address = getOne("SELECT * FROM `customers` JOIN `addresses` ON `customers`.`customerID` = `addresses`.`customerID` AND `customer`.`billingAddressID` = `addresses`.`addressID` WHERE `customer`.`customerID` = $customer_ID", [], $conn);
-
-
-
-$orderItems = getMany("SELECT * FROM `orders`
+// Get all the details of one order from 3 tables
+$details = getMany("SELECT * FROM `orders`
                 JOIN `customers` ON `orders`.`customerID` = `customers`.`customerID`
                 JOIN `orderItems` ON `orders`.`orderID` = `orderItems`.`orderID`
                 JOIN `products` ON `orderItems`.`productID` = `products`.`productID`
@@ -37,6 +25,7 @@ $orderItems = getMany("SELECT * FROM `orders`
                 WHERE `orders`.`orderID` = $order_ID", [], $conn);
 
 
+// // Variables for calculation purposes ***These throw a Whoops exception (undefined index)
 // $item_price = $details['itemPrice'];
 // $item_price_f = "$".number_format($item_price, 2);
 // $discount_amount = $details['discountAmount'];
@@ -47,7 +36,7 @@ $orderItems = getMany("SELECT * FROM `orders`
 // $shipping_amount_f = "$".number_format($shipping_amount, 2);
 
 
-var_dump($orderItems);
+var_dump($details);
 var_dump($order_ID);
 ?>
 
@@ -59,10 +48,13 @@ var_dump($order_ID);
                 <div class="col-sm-6">
                     <div class="card text-white bg-dark mb-3">
                         <div class="card-header text-center font-weight-bold text-white bg-info mb-3">
-                            Discount Calculator
+                            Order Details
                         </div>
                         <div class="card-body">
+
                             
+
+
                             <div class="text-center">
                                 <a href="/" class="btn btn-info">Go Back</a>
                             </div>
