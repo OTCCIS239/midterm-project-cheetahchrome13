@@ -1,0 +1,39 @@
+
+
+
+
+                            <dl class="row">
+                                <dt class="col-6">Order Date:</dt>
+                                <dd class="col-6"><?= $details['orderDate'] ?></dd>
+
+                                <dt class="col-6">Ship Date</dt>
+                                <dd class="col-6"><?= $$details['shipDate'] ?></dd>
+
+                                <dt class="col-6">CC Used:</dt>
+                                <dd class="col-6">Type: <?= $details['cardType'] ?> Card#: <?= $details['cardNumber'] ?></dd>
+
+                                <dt class="col-6">Billing Address:</dt>
+                                <dd class="col-6"><?= $address['line1']." ".$address['city']." ".$address['state']." ".$address['zipCode'] ?></dd> 
+
+                                <dt class="col-6">Products Ordered:</dt>
+                                
+                                <dd class="col-6"><?= $order_items['productName'] ?></dd>
+                                
+                                <dt class="col-6">Item Quantity:</dt>
+                                <dd class="col-6"><?= $order_items['quantity'] ?></dd>
+                                
+                                <dt class="col-6">Item Price:</dt>
+                                <dd class="col-6"><?= $item_price_f ?></dd>
+
+                                <dt class="col-6">Order Discount:</dt>
+                                <dd class="col-6"><?= $discount_amount_f ?></dd>
+
+                                <dt class="col-6">Order Tax Amount:</dt>
+                                <dd class="col-6"><?= $tax_amount_f ?></dd>
+
+                                <dt class="col-6">Order Shipping Amount:</dt>
+                                <dd class="col-6"><?= $discount_f ?></dd>
+
+                                <dt class="col-6">Total Price:</dt>
+                                <dd class="col-6"><?= $total_f ?></dd>
+                            </dl>
