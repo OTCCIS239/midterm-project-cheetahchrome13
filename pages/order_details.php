@@ -37,15 +37,6 @@ $orderItems = getMany("SELECT * FROM `orders`
                 WHERE `orders`.`orderID` = $order_ID", [], $conn);
 
 
-
-
-
-
-
-
-
-
-
 // $item_price = $details['itemPrice'];
 // $item_price_f = "$".number_format($item_price, 2);
 // $discount_amount = $details['discountAmount'];
