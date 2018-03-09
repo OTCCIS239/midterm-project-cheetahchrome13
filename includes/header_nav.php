@@ -30,9 +30,23 @@
                         <li class='nav-item nav-item <?php if($current == 'unshipped') {echo "current";} ?>'>
                             <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/unshipped_orders.php" : "unshipped_orders.php"; ?>'>Unshipped Orders</a>
                         </li>
+
+                        <?php if($current == 'orderDetails') : ?>
+                        <li class='nav-item nav-item <?php if($current == 'orderDetails') {echo "current";} ?>'>
+                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/order_details.php" : "order_detailsphp"; ?>'>Order Details</a>
+                        </li>
+                        <?php endif; ?>
+
                         <li class='nav-item nav-item <?php if($current == 'products') {echo "current";} ?>'>
                             <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/all_products.php" : "all_products.php"; ?>'>Products</a>
                         </li>
+
+                        <?php if($current == 'productDetails') : ?>
+                        <li class='nav-item nav-item <?php if($current == 'productDetails') {echo "current";} ?>'>
+                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/productDetails.php" : "productDetails"; ?>'>Product Details</a>
+                        </li>
+                        <?php endif; ?>
+
                     </ul>
                 </div>
             </nav>

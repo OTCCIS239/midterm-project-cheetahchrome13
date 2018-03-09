@@ -48,7 +48,7 @@ $customers = getMany("SELECT * FROM customers", [], $conn);
                                         <?php $currentCustomer = getOne("SELECT * FROM  customers WHERE customerID = $currentOrder", [], $conn); ?>
                                 <!---->
                                         <tr>
-                                            <td><a href="#"><?php echo $order['orderID']; ?></a></td>
+                                            <td><a href="order_details.php?order_ID=<?= $order['orderID'];?>"><?php echo $order['orderID']; ?></a></td>
                                             <td><?php echo $currentCustomer['firstName']." ".$currentCustomer['lastName']; ?></td>
                                             <td><?php echo $currentCustomer['emailAddress']; ?></td>
                                             <td class="text-right"><?php echo $order['orderDate']; ?></td>
