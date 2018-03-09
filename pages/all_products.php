@@ -25,7 +25,7 @@ $categories = getMany("SELECT * FROM categories", [], $conn);
                     <div class="col-sm-9">
                         <div class="card text-white bg-dark mb-3">
                             <div class="card-header text-center font-weight-bold text-white bg-info mb-3">
-                                <h2>Products</h2>
+                                <h2>All Products</h2>
                             </div>
                             <div class="card-body">
                                 <div>
@@ -43,7 +43,7 @@ $categories = getMany("SELECT * FROM categories", [], $conn);
                                         <?php foreach ($currentID as $product) : ?>
                                 <!---->
                                         <tr>
-                                            <td><a href="#"><?php echo $product['productName']; ?></a></td>
+                                            <td><a href="product_details.php?product_ID=<?= $product['productID'];?>"><?php echo $product['productName']; ?></a></td>
                                             <td class="text-right">$<?php echo $product['listPrice']; ?></td>
                                         </tr>
                                         <?php endforeach; ?>

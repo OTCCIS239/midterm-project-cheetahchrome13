@@ -33,17 +33,17 @@
 
                         <?php if($current == 'orderDetails') : ?>
                         <li class='nav-item nav-item <?php if($current == 'orderDetails') {echo "current";} ?>'>
-                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/order_details.php" : "order_detailsphp"; ?>'>Order Details</a>
+                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/order_details.php" : "order_details.php"; ?>'>Order Details</a>
                         </li>
                         <?php endif; ?>
 
                         <li class='nav-item nav-item <?php if($current == 'products') {echo "current";} ?>'>
-                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/all_products.php" : "all_products.php"; ?>'>Products</a>
+                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/all_products.php" : "all_products.php"; ?>'>All Products</a>
                         </li>
 
                         <?php if($current == 'productDetails') : ?>
                         <li class='nav-item nav-item <?php if($current == 'productDetails') {echo "current";} ?>'>
-                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/productDetails.php" : "productDetails"; ?>'>Product Details</a>
+                            <a class="nav-link" href='<?php echo ($current == 'home') ? "./pages/productDetails.php" : "product_Details.php"; ?>'>Product Details</a>
                         </li>
                         <?php endif; ?>
 

@@ -31,7 +31,7 @@ $customers = getMany("SELECT * FROM customers", [], $conn);
                     <div class="col-sm-9">
                         <div class="card text-white bg-dark mb-3">
                             <div class="card-header text-center font-weight-bold text-white bg-info mb-3">
-                                <h2>Orders</h2>
+                                <h2>Unshipped Orders</h2>
                             </div>
                             <div class="card-body">
                                 <div>

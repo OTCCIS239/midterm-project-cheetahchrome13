@@ -36,3 +36,15 @@
                                 <dt class="col-6">Total Price:</dt>
                                 <dd class="col-6"><?= $total_f ?></dd>
                             </dl>
+
+***********************************************************************************************************************   
+
+<table class="table table-striped table-dark">
+                                        <tr>
+                                            <th scope="col">Category</th>
+                                        </tr>
+                                        <tr>
+                                            <td><?php echo $details['categoryName']; ?></td>
+                                        </tr>
+
+                                    </table>                                

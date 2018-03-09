@@ -1,10 +1,85 @@
 <?php
 
-// This file initializes some goodies that will make your
-// development experience nicer! If your PHP throws an
-// error, we will show you exactly what went wrong!
+// Dependencies/Whoops/Read .env
 require_once('../includes/init.php');
 
-// Here you might connect to the database and show off some of your newest guitars.
+// Connect to the database
+require_once('../includes/db.php');
 
+// get product ID from anchor click
+$product_ID = filter_input(INPUT_GET, 'product_ID', FILTER_VALIDATE_INT);
+if ($product_ID == NULL || $product_ID == FALSE) {
+    $product_ID = 1;
+}
+
+// This page
+$current = "productDetails";
+$title = "Guitars- product details";
+
+// Queries for pertinent tables
+$details = getMany("SELECT * FROM products
+                    JOIN `categories` ON `products`.`categoryID` = `categories`.`categoryID`
+                    WHERE `products`.`productID` = $product_ID", [], $conn);
+
+// Variables fo calculations
+$list_price = $details[0]['listPrice'];
+$list_price_f = "$".number_format($list_price, 2);
+$discount_percent = $details[0]['discountPercent'];
+$discount_percent_f = number_format($discount_percent, 0)."%";
+$discount_price = $list_price - ($list_price * $discount_percent / 100);
+$discount_price_f = "$".number_format($discount_price, 2);
+//var_dump($details);
 ?>
+
+                    
+                    <?php include("../includes/header_nav.php") ?>
+
+                    <!--***Unique page content here*************************-->
+            <div class="row align-items-center" style="height: 100%;">
+                    <div class="col-sm"></div>
+                    <div class="col-sm-6">
+                        <div class="card text-white bg-dark mb-3">
+                            <div class="card-header text-center font-weight-bold text-white bg-info mb-3">
+                                <h2>Product Details</h2>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="text-center"><?= $details[0]['productName']; ?></h5>
+                                    <table class="table table-striped table-dark">
+                                        <tr>
+                                            <th scope="col">Category</th>
+                                        </tr>
+                                        <tr>
+                                            <td><?= $details[0]['categoryName']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Description</th>
+                                        </tr>
+                                        <tr>
+                                            <td><?= $details[0]['description']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">List Price</th>
+                                        </tr>
+                                        <tr>
+                                            <td><?= $list_price_f; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Discount Price (<?= $discount_percent_f." Off!" ?>)</th>
+                                        </tr>
+                                        <tr>
+                                            <td><?= $discount_price_f; ?></td>
+                                        </tr>
+                                    </table>                                
+                                </div>
+                                <div class="text-center">
+                                    <a href="javascript:history.back()" class="btn btn-info">&#8678;Back to Previous Page</a>
+                                </div>      
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm"></div>
+            </div>
+                    
+                    <?php include("../includes/footer.html") ?>
+
