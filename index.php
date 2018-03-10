@@ -23,7 +23,7 @@ $statement1->closeCursor();
                    
                     <?php include("./includes/header_nav.php") ?>
                     <!-- Unique page content here -->
-                    <!--<div class="content-justify-center logo-box"><img src="./includes/logo.png" alt="logo"></div>-->    
+                    <div class="content-justify-center logo-box"><img class="grafik" src="./includes/grafik.png" alt="logo"></div>    
 
                     <?php include("./includes/footer.html") ?>
                
