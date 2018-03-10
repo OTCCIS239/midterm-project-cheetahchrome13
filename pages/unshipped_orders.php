@@ -56,7 +56,10 @@ $customers = getMany("SELECT * FROM customers", [], $conn);
                                         <?php endforeach; ?>
                                 <!---->      
                                     </table>       
-                                </div>      
+                                </div> 
+                                <div class="text-center">
+                                    <a href="javascript:history.back()" class="btn btn-info">&#8678;Back to Previous Page</a>
+                                </div>     
                             </div>
                         </div>
                     </div>
