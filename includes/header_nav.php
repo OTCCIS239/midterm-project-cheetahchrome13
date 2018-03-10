@@ -11,8 +11,8 @@
 </head>
     <body>
         <div class="container">
-            <div class="text-center">
-                <h1>Guitars</h1>
+            <div class="content-justify-center logo-box">
+             <img class="logo" src='<?php echo ($current == 'home') ? "./includes/logo.png" : "../includes/logo.png"; ?>'>
             </div>
             <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark rounded border border-dark">
                 <h4 class="navbar-brand">Menu</h4>
