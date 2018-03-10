@@ -33,7 +33,7 @@
 
                         <?php if($current == 'orderDetails') : ?>
                         <li class='nav-item nav-item <?php if($current == 'orderDetails') {echo "current";} ?>'>
-                            <a class="nav-link text-primary" href='<?php echo ($current == 'home') ? "./pages/order_details.php" : "order_details.php"; ?>'>Order Details</a>
+                            <a class="nav-link text-primary" href='#'>Order Details</a>
                         </li>
                         <?php endif; ?>
 
@@ -43,7 +43,7 @@
 
                         <?php if($current == 'productDetails') : ?>
                         <li class='nav-item nav-item <?php if($current == 'productDetails') {echo "current";} ?>'>
-                            <a class="nav-link text-primary" href='<?php echo ($current == 'home') ? "./pages/productDetails.php" : "product_Details.php"; ?>'>Product Details</a>
+                            <a class="nav-link text-primary" href='#'>Product Details</a>
                         </li>
                         <?php endif; ?>
 
