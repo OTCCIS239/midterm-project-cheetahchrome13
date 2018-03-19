@@ -14,6 +14,8 @@ $title = "Guitars- all orders";
 $orders = getMany("SELECT * FROM orders", [], $conn);
 $customers = getMany("SELECT * FROM customers", [], $conn);
 
+// For date/time formatting
+use Carbon\Carbon;
 
 // // get all products
 // $queryAllOrders = 'SELECT * FROM orders ORDER BY orderID';
@@ -54,7 +56,7 @@ $customers = getMany("SELECT * FROM customers", [], $conn);
                                             <td><?php echo $order['orderID']; ?> <a class="btn btn-primary" href="order_details.php?order_ID=<?= $order['orderID'];?>">Details <i class="fas fa-chevron-right"></i></a></td>
                                             <td><?php echo $currentCustomer['firstName']." ".$currentCustomer['lastName']; ?></td>
                                             <td><?php echo $currentCustomer['emailAddress']; ?></td>
-                                            <td class="text-right"><?php echo $order['orderDate']; ?></td>
+                                            <td class="text-right"><?php echo Carbon::parse($order['orderDate'])->format("M jS 'y"); ?></td>
                                         </tr>
                                         <?php endforeach; ?>
                                 <!---->      
