@@ -48,7 +48,7 @@ $customers = getMany("SELECT * FROM customers", [], $conn);
                                         <?php $currentCustomer = getOne("SELECT * FROM  customers WHERE customerID = $currentOrder", [], $conn); ?>
                                 <!---->
                                         <tr>
-                                            <td><a href="order_details.php?order_ID=<?= $order['orderID'];?>"><?php echo $order['orderID']; ?></a></td>
+                                            <td><?php echo $order['orderID']; ?> <a class="btn btn-primary" href="order_details.php?order_ID=<?= $order['orderID'];?>">Details <i class="fas fa-chevron-right"></i></a></td>
                                             <td><?php echo $currentCustomer['firstName']." ".$currentCustomer['lastName']; ?></td>
                                             <td><?php echo $currentCustomer['emailAddress']; ?></td>
                                             <td class="text-right"><?php echo $order['orderDate']; ?></td>
@@ -58,7 +58,7 @@ $customers = getMany("SELECT * FROM customers", [], $conn);
                                     </table>       
                                 </div> 
                                 <div class="text-center">
-                                    <a href="javascript:history.back()" class="btn btn-info">&#8678;Back to Previous Page</a>
+                                    <a href="javascript:history.back()" class="btn btn-primary"><i class="fas fa-chevron-left"></i> Previous Page</a>
                                 </div>     
                             </div>
                         </div>

@@ -14,6 +14,7 @@ $title = "Guitars- all orders";
 $orders = getMany("SELECT * FROM orders", [], $conn);
 $customers = getMany("SELECT * FROM customers", [], $conn);
 
+
 // // get all products
 // $queryAllOrders = 'SELECT * FROM orders ORDER BY orderID';
 // $statement1 = $conn->prepare($queryAllOrders);
@@ -50,7 +51,7 @@ $customers = getMany("SELECT * FROM customers", [], $conn);
                                         <?php $currentCustomer = getOne("SELECT * FROM  customers WHERE customerID = $currentOrder", [], $conn); ?>
                                 <!---->
                                         <tr>
-                                            <td><a href="order_details.php?order_ID=<?= $order['orderID'];?>"><?php echo $order['orderID']; ?></a></td>
+                                            <td><?php echo $order['orderID']; ?> <a class="btn btn-primary" href="order_details.php?order_ID=<?= $order['orderID'];?>">Details <i class="fas fa-chevron-right"></i></a></td>
                                             <td><?php echo $currentCustomer['firstName']." ".$currentCustomer['lastName']; ?></td>
                                             <td><?php echo $currentCustomer['emailAddress']; ?></td>
                                             <td class="text-right"><?php echo $order['orderDate']; ?></td>

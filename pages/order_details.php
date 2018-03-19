@@ -18,44 +18,30 @@ $title = "Guitars- order details";
 
 // Get all the details of one order from 3 tables
 $details = getMany("SELECT * FROM `orders`
+                
                 JOIN `customers` ON `orders`.`customerID` = `customers`.`customerID`
                 JOIN `orderItems` ON `orders`.`orderID` = `orderItems`.`orderID`
                 JOIN `products` ON `orderItems`.`productID` = `products`.`productID`
                 JOIN `categories` ON `products`.`categoryID` = `categories`.`categoryID`
                 JOIN `addresses` ON `customers`.`billingAddressID` = `addresses`.`addressID`
+                -- JOIN
+                -- (
+                --     SELECT SUM( `orderItems`.`quantity` * (`products`.`listPrice` - (`products`.`listPrice` * `products`.`discountPercent` / 100)) AS subtotal
+                --     FROM `orderItems`
+                --     JOIN `products` ON  `orderItems`.`orderID` = `product`.`orderID`
+                --     -- WHERE `orders`.`orderID` = $order_ID
+                --     -- GROUP BY `orders`.`orderID`
+                -- ) sub
                 WHERE `orders`.`orderID` = $order_ID", [], $conn);
 
-//$details = json_decode(json_encode($order_details),true);
 
-//Variables for calculation purposes ***These throw a Whoops exception (undefined index)
-$list_price1 = $details[0]['listPrice'];
-$list_price1_f = "$".number_format($list_price1, 2);
-$discount_percent1 = $details[0]['discountPercent'];
-$discount_percent1_f = number_format($discount_percent1, 0)."%";
-$discount_price1 = $list_price1 - ($list_price1 * $discount_percent1 / 100);
-$discount_price1_f = "$".number_format($discount_price1, 2);
+                
+// $sub = json_decode(json_encode($order_details),true);
+
+//Variables for calculation purposes 
 $tax_amount = $details[0]['taxAmount'];
-$tax_amount_f = "$".number_format($tax_amount, 2);
-$ship_amount = $details[0]['shipAmount'];
-$ship_amount_f = "$".number_format($ship_amount, 2);
 $ship_date1 = $details[0]['shipDate'];
-$quantity1 = $details[0]['quantity'];
-$total1 = ($quantity1 * $discount_price1) + $tax_amount + $ship_amount;
-$total1_f = "$".number_format($total1, 2);
-
-// This is a temporary band-aid. Gotta find a way to test for multidiminsional array length. 
-// A for loop that creates all these variables based on the amount of inner arrays maybe?
-if($order_ID == 3){
-    $list_price2 = $details[1]['listPrice'];
-    $list_price2_f = "$".number_format($list_price2, 2);
-    $discount_percent2 = $details[1]['discountPercent'];
-    $discount_percent2_f = number_format($discount_percent2, 0)."%";
-    $discount_price2 = $list_price2 - ($list_price2 * $discount_percent2 / 100);
-    $discount_price2_f = "$".number_format($discount_price2, 2);
-    $ship_date2 = $details[1]['shipDate'];
-    $quantity2 = $details[0]['quantity'];
-    $total2 = ($quantity2 * $discount_price2);  
-}
+$ship_amount = $details[0]['shipAmount'];
 
 // var_dump($details);
 ?>
@@ -85,52 +71,48 @@ if($order_ID == 3){
 
                                 <hr>
 
+                                <?php foreach($details as $i => $value) : ?>
+                                <?php 
+                                    $list = $details[$i]['listPrice'];
+                                    $qty = $details[$i]['quantity'];
+                                    $discount = $details[$i]['discountPercent'];
+                                    static $subtotal;
+                                    $price = $qty * ($list - ($list * $discount / 100));
+                                    $subtotal += $price;
+                                ?>
                                 <dt class="col-6 text-right">Order Item: </dt>
-                                <dd class="col-6"><a href="product_details.php?product_ID=<?= $details[0]['productID'];?>"><?= $details[0]['productName'] ?></a></dd>
+                                <dd class="col-6"><a href="product_details.php?product_ID=<?= $details[$i]['productID'];?>"><?= $details[$i]['productName'] ?></a></dd>
 
                                 <dt class="col-6">Category:</dt>
-                                <dd class="col-6"><?= $details[0]['categoryName'] ?></dd>
+                                <dd class="col-6"><?= $details[$i]['categoryName'] ?></dd>
                                 
                                 <dt class="col-6">Item Quantity:</dt>
-                                <dd class="col-6"><?= $details[0]['quantity'] ?></dd>
+                                <dd class="col-6"><?= $qty ?></dd>
                                 
                                 <dt class="col-6">Item Price:</dt>
-                                <dd class="col-6"><?= $list_price1_f ?></dd>
+                                <dd class="col-6"><?= "$".number_format($list, 2) ?></dd>
 
-                                <dt class="col-6">Discount Price (<?= $discount_percent1_f." off!" ?>):</dt>
-                                <dd class="col-6"><?= $discount_price1_f ?></dd>
+                                <dt class="col-6">Discount Price (<?= number_format($discount)."% off" ?>):</dt>
+                                <dd class="col-6"><?= "$".number_format($price, 2) ?></dd>
 
                                 <hr>
+                                <?php endforeach; ?>
 
-                                <?php if($order_ID == 3) : ?>
-                                        <dt class="col-6 text-right">Order Item:</dt>
-                                        <dd class="col-6"><a href="product_details.php?product_ID=<?= $details[1]['productID'];?>"><?= $details[1]["productName"] ?></a></dd>
-
-                                        <dt class="col-6">Category:</dt>
-                                        <dd class="col-6"><?= $details[1]['categoryName'] ?></dd>
-                                        
-                                        <dt class="col-6">Item Quantity:</dt>
-                                        <dd class="col-6"><?= $details[1]["quantity"] ?></dd>
-                                        
-                                        <dt class="col-6">Item Price:</dt>
-                                        <dd class="col-6"><?= $list_price2_f ?></dd>
-
-                                        <dt class="col-6">Discount Price (<?= $discount_percent2_f." off!" ?>):</dt>
-                                        <dd class="col-6"><?= $discount_price2_f ?></dd>
-                                        <hr>
-                                    <?php endif; ?>
-
+                                <?php
+                                    global $subtotal;
+                                    $total = $subtotal + $tax_amount + $ship_amount;
+                                ?>                              
                                 <dt class="col-6">Order Tax Amount:</dt>
-                                <dd class="col-6"><?= $tax_amount_f ?></dd>
+                                <dd class="col-6"><?= "$".number_format($tax_amount, 2) ?></dd>
 
                                 <dt class="col-6">Order Shipping Amount:</dt>
-                                <dd class="col-6"><?= $ship_amount_f ?></dd>
+                                <dd class="col-6"><?= "$".number_format($ship_amount, 2) ?></dd>
 
                                 <dt class="col-6">Total Price:</dt>
-                                <dd class="col-6"><?= $order_ID == 3 ? "$".number_format($total1 + $total2, 2) : $total1_f ?></dd>
-                                </dl> 
+                                <dd class="col-6"><?= "$".number_format($total, 2) ?></dd>
+                            </dl> 
                             <div class="text-center">
-                                <a href="javascript:history.back()" class="btn btn-info">&#8678;Back to Previous Page</a>
+                                <a href="javascript:history.back()" class="btn btn-primary"><i class="fas fa-chevron-left"></i> Previous Page</a>
                             </div>
                         </div>
                     </div>

@@ -21,6 +21,8 @@ $details = getMany("SELECT * FROM products
                     JOIN `categories` ON `products`.`categoryID` = `categories`.`categoryID`
                     WHERE `products`.`productID` = $product_ID", [], $conn);
 
+//$details = json_decode(json_encode($product_details),true);
+
 // Variables fo calculations
 $list_price = $details[0]['listPrice'];
 $list_price_f = "$".number_format($list_price, 2);
@@ -56,7 +58,12 @@ $discount_price_f = "$".number_format($discount_price, 2);
                                             <th scope="col">Description</th>
                                         </tr>
                                         <tr>
-                                            <td><?= $details[0]['description']; ?></td>
+                                            <?php $description = $details[0]['description'];
+                                                // This used to convert a strange slash character to UTF-8 so it can be replaced with regex
+                                                $description = mb_convert_encoding($description, 'UTF-8', 'UTF-8');
+                                                $description = preg_replace(array('/\?/', '/\*/'), array(', ', '<br>&emsp;*'), $description);                                                
+                                            ?>
+                                            <td><?= $description; ?></td>
                                         </tr>
                                         <tr>
                                             <th scope="col">List Price</th>
@@ -65,7 +72,7 @@ $discount_price_f = "$".number_format($discount_price, 2);
                                             <td><?= $list_price_f; ?></td>
                                         </tr>
                                         <tr>
-                                            <th scope="col">Discount Price (<?= $discount_percent_f." Off!" ?>)</th>
+                                            <th scope="col">Discount Price (<?= $discount_percent_f." off" ?>)</th>
                                         </tr>
                                         <tr>
                                             <td><?= $discount_price_f; ?></td>
@@ -73,7 +80,7 @@ $discount_price_f = "$".number_format($discount_price, 2);
                                     </table>                                
                                 </div>
                                 <div class="text-center">
-                                    <a href="javascript:history.back()" class="btn btn-info">&#8678;Back to Previous Page</a>
+                                    <a href="javascript:history.back()" class="btn btn-primary"><i class="fas fa-chevron-left"></i> Previous Page</a>
                                 </div>      
                             </div>
                         </div>
