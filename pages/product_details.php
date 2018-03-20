@@ -60,7 +60,7 @@ $discount_price_f = "$".number_format($discount_price, 2);
                                         <tr>
                                             <?php $description = $details[0]['description'];
                                                 // This used to convert a strange slash character to UTF-8 so it can be replaced with regex
-                                                //$description = mb_convert_encoding($description, 'UTF-8', 'UTF-8');
+                                                $description = mb_convert_encoding($description, 'UTF-8', 'UTF-8');
                                                 $description = preg_replace(array('/\?/', '/\*/'), array(', ', '<br>&emsp;*'), $description);                                                
                                             ?>
                                             <td><?= $description; ?></td>

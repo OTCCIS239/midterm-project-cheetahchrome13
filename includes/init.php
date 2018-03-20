@@ -10,6 +10,8 @@ $whoops = new Whoops\Run;
 $whoops->pushHandler(new Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
+//extension = php_mbstring.dll;
+
 // Read ".env" file
 try {
     $dotenv = new Dotenv\Dotenv(__DIR__.'/..');
